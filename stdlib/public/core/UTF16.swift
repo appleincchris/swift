@@ -697,9 +697,9 @@ internal func transcodeUTF16ToUTF8(
       }
       unsafe input += blockSize
       unsafe output += blockSize
-    } else if let nonSurrogateBlock = unsafe nonSurrogateBlock(at: input) {
+    } else if let block = unsafe nonSurrogateBlock(at: input) {
       for i in 0 ..< blockSize {
-        unsafe encodeScalarAsUTF8(UInt32(nonSurrogateBlock[i]), output: &output)
+        unsafe encodeScalarAsUTF8(UInt32(block[i]), output: &output)
       }
       unsafe input += blockSize
     } else {

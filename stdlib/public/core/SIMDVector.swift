@@ -392,6 +392,7 @@ extension SIMD where Scalar: Comparable {
   }
   
   /// The least element in the vector.
+  @_alwaysEmitIntoClient
   @_transparent
   public func min() -> Scalar {
     var result = self[0]
@@ -400,8 +401,9 @@ extension SIMD where Scalar: Comparable {
     }
     return result
   }
-  
+
   /// The greatest element in the vector.
+  @_alwaysEmitIntoClient
   @_transparent
   public func max() -> Scalar {
     var result = self[0]
@@ -862,6 +864,7 @@ extension SIMD where Scalar: FixedWidthInteger {
   /// addition.
   ///
   /// Equivalent to `indices.reduce(into: 0) { $0 &+= self[$1] }`.
+  @_alwaysEmitIntoClient
   @_transparent
   public func wrappedSum() -> Scalar {
     var result: Scalar = 0
@@ -927,6 +930,7 @@ extension SIMD where Scalar: FloatingPoint {
   }
   
   /// The least scalar in the vector.
+  @_alwaysEmitIntoClient
   @_transparent
   public func min() -> Scalar {
     var result = self[0]
@@ -935,8 +939,9 @@ extension SIMD where Scalar: FloatingPoint {
     }
     return result
   }
-  
+
   /// The greatest scalar in the vector.
+  @_alwaysEmitIntoClient
   @_transparent
   public func max() -> Scalar {
     var result = self[0]
@@ -1553,12 +1558,14 @@ extension SIMDMask {
 }
 
 /// True if any lane of mask is true.
+@_alwaysEmitIntoClient
 @_transparent
 public func any<Storage>(_ mask: SIMDMask<Storage>) -> Bool {
   return mask._storage.min() < 0
 }
 
 /// True if every lane of mask is true.
+@_alwaysEmitIntoClient
 @_transparent
 public func all<Storage>(_ mask: SIMDMask<Storage>) -> Bool {
   return mask._storage.max() < 0

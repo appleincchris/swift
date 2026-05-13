@@ -658,3 +658,35 @@ class TestDriverArgumentParser(
     def test_implied_defaults_swift_disable_dead_stripping(self):
         namespace = self.parse_default_args(['--swift-disable-dead-stripping'])
         self.assertTrue(namespace.swift_disable_dead_stripping)
+
+    def test_pedantic_diagnostics(self):
+        namespace = self.parse_default_args([
+            '--no-pedantic-diagnostics', '--pedantic-diagnostics'
+        ])
+        self.assertTrue(namespace.pedantic_diagnostics)
+
+        namespace = self.parse_default_args([
+            '--pedantic-diagnostics', '--no-pedantic-diagnostics'
+        ])
+        self.assertFalse(namespace.pedantic_diagnostics)
+
+        namespace = self.parse_default_args(['--no-assertions'])
+        self.assertFalse(namespace.pedantic_diagnostics)
+
+        namespace = self.parse_default_args(['--no-swift-assertions'])
+        self.assertFalse(namespace.pedantic_diagnostics)
+
+        namespace = self.parse_default_args([
+            '--no-assertions', '--swift-assertions'
+        ])
+        self.assertTrue(namespace.pedantic_diagnostics)
+
+        namespace = self.parse_default_args([
+            '--no-assertions', '--pedantic-diagnostics'
+        ])
+        self.assertTrue(namespace.pedantic_diagnostics)
+
+        namespace = self.parse_default_args([
+            '--no-swift-assertions', '--pedantic-diagnostics'
+        ])
+        self.assertTrue(namespace.pedantic_diagnostics)

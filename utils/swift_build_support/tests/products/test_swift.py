@@ -41,6 +41,7 @@ class SwiftTestCase(unittest.TestCase):
 
         # Setup args
         self.args = argparse.Namespace(
+            pedantic_diagnostics=True,
             enable_tsan_runtime=False,
             compiler_vendor='none',
             swift_compiler_version=None,
